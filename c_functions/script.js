@@ -6,8 +6,10 @@
   of the salutations to pupulate inputSelect
   found in index.html
 */
+
+//const prompt =  require('prompt-sync')({sigint: true}); 
 function ftnSalutation(){
-  //  implement your statement(s) here
+    return new Array("Mr.", "Mrs.", "Ms.", "Dr.");
 }
 
 /* 
@@ -17,7 +19,8 @@ function ftnSalutation(){
   calls it
 */
 const ftnGreeting = (salutation, user) => {
-    //  implement your statement(s) here
+    var msg = "Hi, " + salutation + " " + user + "!";
+    return msg; 
 }
 
 /*
@@ -29,3 +32,15 @@ Hint:
 - validateInputs returns false if either choice or name is incorrectly filled
 - validateInputs returns true if both choice and name are correctly filled
 */
+function validateInputs(choice, name = ""){
+
+
+
+  var goof = (choice !== "" && name != "");
+  
+
+  
+
+  return true;
+
+}

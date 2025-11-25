@@ -45,12 +45,53 @@
 
   <script>
 
-    // implement your statement(s) here
-    // e.g. statement 1
-    // e.g. statement 2
+    // retrieve the salutation values from arrow function ftnSaluation, store it as a const "arr"
+    const arr = ftnSalutation(); 
+    
+    // stores inputSelect object as "selectList", for options to be added later
+    const selectList = document.getElementById("inputSelect");
+
+    // add the 1st option to const "selectList" and set it to selected by default
+    selectList.options[0] = new Option("Please select", "");
+    selectList.options[0].selected = true;
+
+    // use a for loop to iterate through array "arr" to populate selectList
+    for (let index = 0; index < arr.length; index++) {
+      selectList.options[index + 1] = new Option(arr[index], arr[index]);
+    }
+
+    // the onclick event handler from the button within the form
+    // executes ftnProcessName which in turn calls ftnGreeting
+    // to return a string as the result to be displayed via an alert
+    function ftnProcessName(){
+      const selectedChoice = document.getElementById("inputSelect").value;
+      const uName = document.getElementById("inputName").value;
+      console.log("We in ftnProcess")
+      console.log(selectedChoice);
+      console.log(uName);
+      // invoke validateInputs here
+      const validated = validateInputs(selectedChoice, uName);
+
+      // discontinue and show alert if validateInputs returns false
+      if(!validated)
+        return alert("Please fill in the inputs correctly.");
+
+      // call ftnGreeting, pass in the "selectedChoice" and "uName"
+      const result = ftnGreeting(selectedChoice, uName);
+      alert(result);
+    }
+
+    // Challenge statement:
+    // Update ftnProcessName to call a function validateInput to validate the following:
+    // 1. check if a salutation from inputSelect is selected
+    // 2. check if the name is not empty
+    // 3. if both conditions are met, function validateInput returns a boolean true
+    // 4. else validateInputs returns a boolean false
+    // 5. if validateInputs returns false, invoke an alert to inform the user
+    // 6. finally, ftnGreeting should only be called if validateInputs returns true
 
   </script>
-  
+
   <!-- Bootstrap JavaScript Library -->
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
