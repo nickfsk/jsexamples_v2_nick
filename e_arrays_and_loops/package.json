@@ -1,15 +1,28 @@
 {
   "name": "e_arrays_and_loops",
   "version": "1.0.0",
+<<<<<<< HEAD
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+=======
+  "description": "",
+  "main": "script.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node userinput.js",
+>>>>>>> 2633e9b (added arrays and loops exercises)
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+<<<<<<< HEAD
   "description": "",
   "dependencies": {
     "prompt-sync": "^4.2.0"
   }
+=======
+
+>>>>>>> 2633e9b (added arrays and loops exercises)
 }
