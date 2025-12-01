@@ -109,6 +109,20 @@ tickerSymbols.forEach(ticker => console.log(ticker));
 const productListing = [{name: "Jordan 3", price: "$100"}, {name: "Nike Dunks", price: "$150"}];
 productListing.forEach(item => console.log(item));
 
+
+
+const sleep = (delay) => new Promise((resolve) => setTimeout(() => {
+  console.log("I am sleeping");
+  return resolve;
+}, delay));
+sleep(2000);
+
+
+setTimeout(() => {
+ // console.log("wait"); }
+2000);
+
+
 // iii - do-while loop (execute first, check for the condition later)
 
 // -- Uncomment the code below to test -- 

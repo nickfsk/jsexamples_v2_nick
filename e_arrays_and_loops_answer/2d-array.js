@@ -1,3 +1,5 @@
+
+import promptSync from 'prompt-sync';
 // Example: 2D Array
 /* **************** */
 const array2D = [
@@ -13,6 +15,9 @@ const element = array2D[1][1];
 console.log("Element selected: ", element);
 
 // Create a 2D array of game tiles
+// Assessment - Pay attention!
+
+
 const myField = [
   ['░', '░', 'O', '░'],
   ['*', 'O', '░', 'O'],
@@ -36,3 +41,4 @@ for (let i = 0; i < rows; i++) {
 }
 
 console.log(arr2D);
+cons
