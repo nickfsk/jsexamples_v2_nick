@@ -27,14 +27,14 @@ const WIN = "Congrats , you won!";
 const LOSE = "You fell into a hole, you lost!";
 const OUT = "Outta play area, you lost";
 
-// TODO: MAP ROWS, COLUMNS AND PERCENTAGE
-const ROWS = 10;
-const COLS = 10;
+// Done: MAP ROWS, COLUMNS AND PERCENTAGE
+const ROWS = 15;
+const COLS = 15;
 const PERCENT = 0.2; // Percentage of randomness
 
 class Field {
   /**
-   *  TODO: constructor, a built-in method of a class (invoked when an object of a class is instantiated)
+   *  Done: constructor, a built-in method of a class (invoked when an object of a class is instantiated)
    * @param {*} field
    */
   constructor(field = null) {
@@ -43,19 +43,39 @@ class Field {
     this.gamePlay = false; //game is by default  = false
     this.playerPosition = { x: 0, y: 0 }; //Player position is by default X:0 , Y:0
   }
+
   /**
    *
    */
   static generateField(rows = 8, cols = 8, percent = 0.1) {
     const map = new Array();
     for (let row = 0; row < rows; row++) {
-      map[row] = new Array(); // or can put [] , which means the same
+      map[row] = new Array(); // or can assign [] , which means the same
 
       for (let col = 0; col < cols; col++) {
         // For each col
         map[row][col] = Math.random() > percent ? GRASS : HOLE; //place the grass patch
       }
     }
+
+    //Ensure [0][0] is a patch of grass, as the initial start of player is [0][0]
+    map[0][0] = GRASS;
+
+    // Ensure at least one of the adjacent positions ([0][1] or [1][0]) is GRASS for first move
+    //added 2 dec: Ensure player has at least one valid move at start so that player
+    //isnt surrounded by holes, change either one if both are holes.
+    
+    if (map[0][1] === HOLE && map[1][0] === HOLE) {
+      // Randomly choose one to change to GRASS
+      const changeRight = Math.random() > 0.5;
+
+      if (changeRight) {
+        map[0][1] = GRASS;
+      } else {
+        map[1][0] = GRASS;
+      }
+    }
+
     return map;
   } //
   /**
@@ -66,7 +86,7 @@ class Field {
     console.log(MSG_WELCOME);
   }
 
-  // TODO: setHat positions the hat along a random x and y position within field array
+  // Done: setHat positions the hat along a random x and y position within field array
   setHat() {
     const xHat = Math.floor(Math.random() * ROWS - 1) + 1; //+ 1 to not clash with hat at 0,0
     const yHat = Math.floor(Math.random() * COLS - 1) + 1; // -1 to ensure hat doesnt go outta field
@@ -89,13 +109,69 @@ class Field {
     return console.log(MSG_INVALID);
   }
 
+  // updateGame(m = "") {
+  //   //1.Capture the players currX and CurrY pos
+  //   //2.When player moves, update field to show new pos of player, if grass ok.
+  //   //3.check if player enters a hole, lose ==> Process Exit;
+  //   //4.if player goes out of bound , lose => Process Exit;
+  //   //5. If player reaches a hat,win. Show win! ==> Exit
+  // }
+
   updateGame(m = "") {
-    //1.Capture the players currX and CurrY pos
-    //2.When player moves, update field to show new pos of player, if grass ok.
-    //3.check if player enters a hole, lose ==> Process Exit;
-    //4.if player goes out of bound , lose => Process Exit;
-    //5. If player reaches a hat,win. Show win! ==> Exit
+    // STEP 1: Get the player's current position
+    const { x: currX, y: currY } = this.playerPosition;
+    let newX = currX;
+    let newY = currY;
+
+    // STEP 2: Calculate the new position based on the move
+    switch (m.toLowerCase()) {
+      case UP:
+        newX--;
+        break;
+      case DOWN:
+        newX++;
+        break;
+      case LEFT:
+        newY--;
+        break;
+      case RIGHT:
+        newY++;
+        break;
+      default:
+        // If it's not a valid move, do nothing
+        return;
+    }
+
+    // STEP 3: Check if the new position is within the boundaries
+    if (newX < 0 || newX >= ROWS || newY < 0 || newY >= COLS) {
+      console.log(OUT);
+      process.exit();
+      //return; // Don't move if out of bounds
+    }
+
+    //if the player walks into a hole
+    if (this.field[newX][newY] === HOLE) {
+      console.log(LOSE);
+      process.exit();
+    }
+
+    // If player lands on a hat, win
+    if (this.field[newX][newY] === HAT) {
+      console.log(WIN);
+      process.exit();
+    }
+
+    // STEP 4: Update the field array
+    // First, clear the player's old position (replace with grass)
+    this.field[currX][currY] = GRASS;
+
+    // Then, place the player at the new position
+    this.field[newX][newY] = PLAYER;
+
+    // STEP 5: Update the stored player position
+    this.playerPosition = { x: newX, y: newY };
   }
+
   //  TODO: start() a public method of the class to start the game
   start() {
     this.gamePlay = true; //start the game
@@ -105,31 +181,24 @@ class Field {
 
     do {
       const input = prompt("\n(w)up, (s)down, (a) left,  (d) right, (q) exit:");
-      this.printField();
 
-      switch (input.toLowerCase()) {
-        case UP:
-          this.updateMove(UP);
-          break;
-        case DOWN:
-          this.updateMove(DOWN);
-          break;
-        case LEFT:
-          this.updateMove(LEFT);
-          break;
-        case RIGHT:
-          this.updateMove(RIGHT);
-          break;
-        case QUIT:
-          this.updateMove(QUIT);
-
-          break;
-        default:
-          break;
+      // Handle the quit command
+      if (input.toLowerCase() === QUIT) {
+        console.log(MSG_QUIT);
+        // this.gamePlay = false;
+        // break;
+        process.exit();
       }
-      if (input == QUIT) process.exit(); //this.gamePlay = false; // Or process.exit()
 
+      // Update the move (shows the move message)
+      this.updateMove(input);
+
+      // Update the game state (moves the player)
       this.updateGame(input);
+
+      // Print the updated field after the move
+      console.log("\n"); // Add a blank line for readability
+      this.printField();
     } while (this.gamePlay);
   }
 }
