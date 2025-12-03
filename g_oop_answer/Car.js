@@ -29,7 +29,11 @@ class Car extends Vehicle { // <-- INHERITANCE: Using 'extends' establishes the 
     // - ABSTRACTION (hides the implementation that exists in the parent)
     // - ENCAPSULATION (manages the internal state of distanceTravelled)
 }
-let myNewCar = new Car("Honda", "Civic", 2024);
+
+
+
+const myNewCar = new Car("Honda", "Civic", 2024);
 myNewCar.drive(50); // Calls the Car's specialized drive() method
 console.log(`Car total distance: ${myNewCar.getTotalDistance()}`);
 console.log(`Has Airbag: ${myNewCar.checkSafetyFeature()}`);
+

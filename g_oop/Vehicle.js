@@ -1,4 +1,5 @@
-// Constructor function for creating a Vehicle object
+
+
 class Vehicle {
     constructor(make, model, year){
         this.make = make; // Property to store the vehicle's make
@@ -25,8 +26,17 @@ let myTransport = new Vehicle("Toyota", "Raize", 2022);
 
 // Call the method travel() to update the distance of the instance of Vehicle by 100
 myTransport.travel(100);
+myTransport.travel(50);
+
+console.log(`My transport has travelled a total of ${myTransport.getTotalDistance()} km. `);
 
 // Call the method getTotalKilometersDriven to retrive the mileage of the instance of car
 myTransport.getTotalDistance();
 
-module.exports = Vehicle; // Export Class
+
+const myTransport2 = new Vehicle("hona", "Vexal", "2013", 50);
+myTransport.travel(10);
+
+//module.exports = Vehicle; // Export Class
+
+export default Vehicle;
