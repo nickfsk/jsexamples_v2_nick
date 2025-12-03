@@ -1,4 +1,5 @@
 const prompt = require("prompt-sync")({ sigint: true });
+//const prompt = require("play sound")({ sigint: true });
 //Done : Game elements / assets
 const GRASS = "░";
 const HOLE = "O"; //Capital O
@@ -31,6 +32,9 @@ const OUT = "Outta play area, you lost";
 const ROWS = 15;
 const COLS = 15;
 const PERCENT = 0.2; // Percentage of randomness
+//const player = require('play - sound')((opts = {}));
+
+//let audio = new Audio('finish.wav');
 
 class Field {
   /**
@@ -136,6 +140,17 @@ class Field {
 
     // STEP 3: Check if the new position is within the boundaries
     if (newX < 0 || newX >= ROWS || newY < 0 || newY >= COLS) {
+      //Sound
+      const player = require("play-sound")();
+
+      player.play("finish.wav", (err) => {
+        if (err) {
+          console.error("Error playing sound:", err);
+        } else {
+          console.log("Sound played successfully!");
+        }
+      });
+      //
       console.log(OUT);
       process.exit();
       //return; // Don't move if out of bounds
@@ -143,13 +158,54 @@ class Field {
 
     //if the player walks into a hole
     if (this.field[newX][newY] === HOLE) {
+      //sound
+      const player = require("play-sound")();
+
+      player.play("finish.wav", (err) => {
+        if (err) {
+          console.error("Error playing sound:", err);
+        } else {
+          console.log("Sound played successfully!");
+        }
+      });
+      //
       console.log(LOSE);
       process.exit();
     }
 
     // If player lands on a hat, win
-    if (this.field[newX][newY] === HAT) {
-      console.log(WIN);
+    if (this.field[newX][newY] == HAT) {
+      //audio.play();
+      const player = require("play-sound")();
+
+      player.play("finish.wav", (err) => {
+        if (err) {
+          console.error("Error playing sound:", err);
+        } else {
+          console.log("Sound played successfully!");
+        }
+      });
+      //
+      const { spawn } = require("child_process");
+
+      // Use absolute path to avoid PATH issues inside VS Code’s integrated terminal
+      const afplay = "/usr/bin/afplay";
+      const file = "finish.wav"; // use an absolute path if needed
+
+      const child = spawn(afplay, [file], { stdio: "ignore" });
+
+      child.on("error", (err) => {
+        console.error("Failed to start afplay:", err);
+      });
+
+      child.on("exit", (code) => {
+        if (code === 0) {
+          console.log("Sound played successfully!");
+        } else {
+          console.error(`afplay exited with code ${code}`);
+        }
+      });
+      //end play sound
       process.exit();
     }
 
