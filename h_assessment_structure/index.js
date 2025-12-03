@@ -105,6 +105,17 @@ class Field {
   }
 
   updateMove(m) {
+    //Move sound
+    const player = require("play-sound")();
+
+    player.play("stomp.wav", (err) => {
+      if (err) {
+        console.error("Error playing sound:", err);
+      } else {
+        console.log("Sound played successfully!");
+      }
+    });
+    //end move sound
     if (m == UP) return console.log(MSG_UP);
     if (m == DOWN) return console.log(MSG_DOWN);
     if (m == LEFT) return console.log(MSG_LEFT);
@@ -209,14 +220,14 @@ class Field {
     this.printField();
     //Start music
     const player = require("play-sound")();
- 
-      player.play("begin.wav", (err) => {
-        if (err) {
-          console.error("Error playing sound:", err);
-        } else {
-          console.log("Sound played successfully!");
-        }
-      });
+
+    player.play("begin.wav", (err) => {
+      if (err) {
+        console.error("Error playing sound:", err);
+      } else {
+        console.log("Sound played successfully!");
+      }
+    });
 
     //End start Music
     do {
@@ -224,6 +235,17 @@ class Field {
 
       // Handle the quit command
       if (input.toLowerCase() === QUIT) {
+        //Play end tune
+        const player = require("play-sound")();
+
+        player.play("finish.wav", (err) => {
+          if (err) {
+            console.error("Error playing sound:", err);
+          } else {
+            console.log("Sound played successfully!");
+          }
+        });
+        //End play end tune
         console.log(MSG_QUIT);
         // this.gamePlay = false;
         // break;
