@@ -3,8 +3,8 @@ let ansString = "ten";
 
 let userInput = prompt("Guess the number. Press q or Q to quit.");
 
-while(userInput !== "q" && userInput != "Q"){ // as long as the user doesn't enter 'q' AND 'Q', run the loop
-    
+//while(userInput !== "q" && userInput != "Q"){ // as long as the user doesn't enter 'q' AND 'Q', run the loop
+  while(userInput.toLowerCase()){
     if(userInput == ans){ // if user's answer is a number 10
         
         alert("You are correct!!");

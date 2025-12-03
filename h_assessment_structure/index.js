@@ -64,7 +64,7 @@ class Field {
     // Ensure at least one of the adjacent positions ([0][1] or [1][0]) is GRASS for first move
     //added 2 dec: Ensure player has at least one valid move at start so that player
     //isnt surrounded by holes, change either one if both are holes.
-    
+
     if (map[0][1] === HOLE && map[1][0] === HOLE) {
       // Randomly choose one to change to GRASS
       const changeRight = Math.random() > 0.5;
@@ -108,7 +108,6 @@ class Field {
     if (m == QUIT) return console.log(MSG_QUIT);
     return console.log(MSG_INVALID);
   }
-
 
   updateGame(m = "") {
     // STEP 1: Get the player's current position

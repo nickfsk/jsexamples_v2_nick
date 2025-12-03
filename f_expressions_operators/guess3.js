@@ -1,4 +1,5 @@
 let ans = 10;
+<<<<<<< HEAD
 
 let userInput = prompt("Guess the number. Press q or Q to quit.").toLowerCase();
 
@@ -22,3 +23,40 @@ while (userInput !== 'q') {
     }
 
 }
+=======
+let ansString = "ten";
+
+let userInput = prompt("Guess the number. Press q or Q to quit.");
+
+//alert(userInput);
+
+while(userInput != 'q'){ // as long as the user doesn't enter 'q' AND 'Q', run the loop
+    
+    if (Number(userInput) === 10){
+        alert("you are correct");
+        break;
+    }
+    
+    else if ( !userInput){
+        userInput = prompt("Your answer is empty, please enter a value").toLowerCase();
+    }
+    else 
+    {
+        const hint = ( userInput < ans ) ? "higher" : "Lower!";
+        alert(`Answer incorrect. ${hint} number please!`);
+        userinput = prompt("Guess again, press q to quit").toLowerCase();
+   }
+   
+   //Provide hints on above or below
+
+   
+
+
+ }
+
+
+
+
+
+
+>>>>>>> 671164b (Update on expressions and strings)
