@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="form1" action="" method="POST" onsubmit="ftnSubmitForm();"></form>
+
+    <form id="form2" action="" method="POST" onsubmit="ftnSubmitForm();"></form>
+
+    <script>
+      function ftnSubmitForm() {
+        alert("This form has been sent!");
+      }
+
+      document.getElementById("form2").addEventListener("submit", () => {
+        alert("this second form has been sent");
+      });
+    </script>
+  </body>
+</html>
