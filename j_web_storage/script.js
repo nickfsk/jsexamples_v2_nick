@@ -53,7 +53,8 @@ async function fetchColorsList() {
         
         for (let currentPage = page; currentPage <= totalPages; currentPage++){
             const response = await fetch('https://reqres.in/api/unknown?page=${currentPage}', {
-            headers: { "x-api-key": "reqres_381e0f1190d3443f8650e541a0b206c8" }
+            //headers: { "x-api-key": "reqres_381e0f1190d3443f8650e541a0b206c8" }
+            headers: { "x-api-key": API_KEY }
             });
 
             const resp = await response.json();
